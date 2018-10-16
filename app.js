@@ -2,7 +2,6 @@
 // add unhappy case
 // hook up date handler
 
-
 function generateNYTimesHTML(responseJson) {
     let article = responseJson.articles;
     let htmlString = '';
@@ -47,7 +46,6 @@ function renderReddit(responseJson){
 }
 
 function callReddit(startDate, endDate){
-    console.log(startDate, endDate);
     fetch(`https://api.pushshift.io/reddit/submission/search/?sort=desc&sort_type=num_comments&size=5&after=${startDate}&before=${endDate}`)
     .then(response => {
         if (response.ok) {
@@ -59,12 +57,12 @@ function callReddit(startDate, endDate){
 
 function handleDate() {
     let selectedDate = $('input[type="date"]').val();
-    console.log(selectedDate);
     let epochDate = new Date(selectedDate);
-    console.log(epochDate);
     let epochDateStart = epochDate.getTime();
     let epochDateEnd = new Date(epochDateStart + 86400000);
-    epochDateEnd = epochDateEnd.getTime();
+    //divide time by 1000 to get epoch date in seconds
+    epochDateEnd = epochDateEnd.getTime() / 1000;
+    epochDateStart = epochDateStart /1000;
     return [selectedDate, epochDateStart, epochDateEnd];
 }
 
@@ -72,8 +70,8 @@ function handleSubmit() {
     $('form').submit(event => {
         event.preventDefault();
         let date = handleDate();
-        // callNYTimes(date[0]);
-        // callReddit(date[1], date[2]);
+        callNYTimes(date[0]);
+        callReddit(date[1], date[2]);
     }) 
 
 }
@@ -81,4 +79,5 @@ function handleSubmit() {
 $(handleSubmit);
 
 //error log:
-// finding undefined in  
+// finding undefined in  HTMLString, done in by initializing an empty variable instead of a variable assigned to an empty string
+// epoch time for 
