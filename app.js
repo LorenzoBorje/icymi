@@ -9,11 +9,12 @@ function readyPage() {
 
 function generateNYTimesHTML(responseJson) {
     console.log('generating NYtimes');
-    let response = responseJson.articles;
-    let htmlString;
+    let article = responseJson.articles;
+    let htmlString = '';
     response.forEach(article => {
         htmlString += `<h3>${article.title}</h3><h4>By ${article.author}</h4><<p>${article.description}</p>a href="${article.url}">Read More</p>`
-    })
+    });
+    console.log(htmlString)
     return htmlString;
 }
 
@@ -37,7 +38,7 @@ function callNYTimes(size){
 function generateRedditHTML(responseJson) {
     console.log('generating')
     let response = responseJson.data;
-    let htmlString;
+    let htmlString = '';
     response.forEach(article => {
         htmlString += `<h3>${article.title}</h3><h4>${article.subreddit}</h4><a href="${article.full_link}">Read More</a>`
     })
@@ -70,3 +71,6 @@ function handleSubmit() {
 }
 
 $(handleSubmit);
+
+//error log:
+// finding undefined in  
