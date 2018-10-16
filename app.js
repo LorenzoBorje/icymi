@@ -1,10 +1,38 @@
+// do to:
+// add unhappy case
+// hook up date handler
+
+
 function readyPage() {
     $('#js-date').datePicker();
 }
 
-function callPopularNYTimes(size){
+function generateNYTimesHTML(responseJson) {
+    console.log('generating NYtimes');
+    let response = responseJson.articles;
+    let htmlString;
+    response.forEach(article => {
+        htmlString += `<h3>${article.title}</h3><h4>By ${article.author}</h4><<p>${article.description}</p>a href="${article.url}">Read More</p>`
+    })
+    return htmlString;
+}
+
+function renderNYTimes(responseJson){
+    console.log(responseJson.articles);
+    $('.NYTimes').append(generateNYTimesHTML(responseJson));
+    console.log('rendering')
+}
+
+function callNYTimes(size){
     console.log('calling New York Times');
     fetch(`https://newsapi.org/v2/everything?domains=nytimes.com&apiKey=0b6c25a9ff884a048e469de267871ad1&sortBy=popularity&from=2018-10-13&to=2018-10-13&pageSize=${size}`)
+    .then(response => {
+        if(response.ok) {
+            return response.json();
+        }
+        throw new Error (error.message);
+    })
+    .then(responseJson => renderNYTimes(responseJson));
 }
 function generateRedditHTML(responseJson) {
     console.log('generating')
@@ -35,7 +63,8 @@ function callReddit(size){
 function handleSubmit() {
     $('form').submit(event => {
         event.preventDefault();
-        callReddit(5);
+        // callReddit(5);
+        callNYTimes(5);
     }) 
 
 }
