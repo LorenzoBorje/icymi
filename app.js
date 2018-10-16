@@ -3,30 +3,24 @@
 // hook up date handler
 
 
-function readyPage() {
-    $('#js-date').datePicker();
-}
-
 function generateNYTimesHTML(responseJson) {
-    console.log('generating NYtimes');
     let article = responseJson.articles;
     let htmlString = '';
-    response.forEach(article => {
-        htmlString += `<h3>${article.title}</h3><h4>By ${article.author}</h4><<p>${article.description}</p>a href="${article.url}">Read More</p>`
+    article.forEach(article => {
+        htmlString += `<h3>${article.title}</h3><h4>By ${article.author}</h4><p>${article.description}</p><a href="${article.url}">Read More</a></p>`
     });
-    console.log(htmlString)
     return htmlString;
 }
 
 function renderNYTimes(responseJson){
-    console.log(responseJson.articles);
+    $('.NYTimes').empty()
     $('.NYTimes').append(generateNYTimesHTML(responseJson));
-    console.log('rendering')
 }
 
-function callNYTimes(size){
-    console.log('calling New York Times');
-    fetch(`https://newsapi.org/v2/everything?domains=nytimes.com&apiKey=0b6c25a9ff884a048e469de267871ad1&sortBy=popularity&from=2018-10-13&to=2018-10-13&pageSize=${size}`)
+function callNYTimes(date){
+    date = encodeURI(date);
+    console.log(date);
+    fetch(`https://newsapi.org/v2/everything?domains=nytimes.com&apiKey=0b6c25a9ff884a048e469de267871ad1&sortBy=popularity&from=${date}&to=${date}&pageSize=5`)
     .then(response => {
         if(response.ok) {
             return response.json();
@@ -46,13 +40,15 @@ function generateRedditHTML(responseJson) {
 }
 
 function renderReddit(responseJson){
+    
     console.log(responseJson.data);
     $('.reddit').append(generateRedditHTML(responseJson));
-    console.log('rendering')
+    
 }
 
-function callReddit(size){
-    fetch(`https://api.pushshift.io/reddit/submission/search/?after=24h&sort=desc&sort_type=num_comments&size=${size}&fields=full_link,subreddit,num_comments,title`)
+function callReddit(startDate, endDate){
+    console.log(startDate, endDate);
+    fetch(`https://api.pushshift.io/reddit/submission/search/?sort=desc&sort_type=num_comments&size=5&after=${startDate}&before=${endDate}`)
     .then(response => {
         if (response.ok) {
             return response.json();
@@ -61,11 +57,23 @@ function callReddit(size){
     .then(responseJson => renderReddit(responseJson));
 }
 
+function handleDate() {
+    let selectedDate = $('input[type="date"]').val();
+    console.log(selectedDate);
+    let epochDate = new Date(selectedDate);
+    console.log(epochDate);
+    let epochDateStart = epochDate.getTime();
+    let epochDateEnd = new Date(epochDateStart + 86400000);
+    epochDateEnd = epochDateEnd.getTime();
+    return [selectedDate, epochDateStart, epochDateEnd];
+}
+
 function handleSubmit() {
     $('form').submit(event => {
         event.preventDefault();
-        // callReddit(5);
-        callNYTimes(5);
+        let date = handleDate();
+        // callNYTimes(date[0]);
+        // callReddit(date[1], date[2]);
     }) 
 
 }
