@@ -8,7 +8,7 @@ function generateSpotifyHTML(chartData) {
     console.log(chartData);
     let htmlString = '';
     chartData.forEach(track => {
-        htmlString += `<h3>${track.Name}</h3><h4>${track.Artist}</h4><a href="${track.URL}">Play on Spotify</a>`
+        htmlString += `<h3>${track.Name}</h3><h4>${track.Artist}</h4><a href="${track.URL}" target="_blank">Play on Spotify</a>`
     });
     return htmlString;    
 }
@@ -59,7 +59,7 @@ function generateNYTimesHTML(responseJson) {
     let articles = responseJson.articles;
     let htmlString = '';
     articles.forEach(article => {
-        htmlString += `<h3>${article.title}</h3><h4>By ${article.author}</h4><p>${article.description}</p><a href="${article.url}">Read More</a></p>`
+        htmlString += `<h3>${article.title}</h3><h4>By ${article.author}</h4><p>${article.description}</p><a href="${article.url}" target="_blank">Read More</a></p>`
     });
     return htmlString;
 }
@@ -87,7 +87,7 @@ function generateRedditHTML(responseJson) {
     let response = responseJson.data;
     let htmlString = '';
     response.forEach(article => {
-        htmlString += `<h3>${article.title}</h3><h4>${article.subreddit}</h4><a href="${article.full_link}">Read More</a>`
+        htmlString += `<h3>${article.title}</h3><h4>${article.subreddit}</h4><a href="${article.full_link}" target="_blank">Read More</a>`
     })
     return htmlString;
 }
