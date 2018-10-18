@@ -44,9 +44,11 @@ function convertCsvToObj(csv) {
     return(chart);
 }
 
-function callSpotifyChart() {
+function callSpotifyChart(date) {
     let chartData;
-    $.get('https://allorigins.me/get?method=raw&url=' + encodeURIComponent('https://spotifycharts.com/viral/global/daily/2018-10-14/download') + '&callback=?', data => {
+    date = encodeURI(date)
+    console.log(date);
+    $.get('https://allorigins.me/get?method=raw&url=' + encodeURIComponent(`https://spotifycharts.com/viral/global/daily/${date}/download`) + '&callback=?', data => {
     chartData = convertCsvToObj(data);
     renderSpotify(chartData);
     });
@@ -117,9 +119,9 @@ function handleDate() {
 }
 
 function callAPI(date){
-    // callNYTimes(date[0]);
-    // callReddit(date[1], date[2]);
-    callSpotifyChart();
+    callNYTimes(date[0]);
+    callReddit(date[1], date[2]);
+    callSpotifyChart(date[0]);
 }
 
 function handleSubmit() {
