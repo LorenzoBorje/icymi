@@ -1,3 +1,36 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'K2D', sans-serif;
+}
+
+input {
+    font-family: 'K2D', sans-serif;
+}
+
+header {
+    text-align: center;
+}
+main {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+}
+
+section {
+    width: 28%;
+}
+
+section h2 {
+    text-align: center;
+}
+
 .hidden {
-    dispaly: none;
+    display: none;
 }
