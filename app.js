@@ -4,16 +4,58 @@
 
 const apiKeyNYT = '2e6221e2ef1149908f06408d501922f0';
 
+function generateSpotifyHTML(chartData) {
+    console.log(chartData);
+    let htmlString = '';
+    chartData.forEach(track => {
+        htmlString += `<h3>${track.Name}</h3><h4>${track.Artist}</h4><a href="${track.URL}">Play on Spotify</a>`
+    });
+    return htmlString;    
+}
+
+function renderSpotify(chartData){
+    $('.spotify').empty();
+    $('.spotify').append(generateSpotifyHTML(chartData));
+}
+
+// convert spotify viral chart CSV to JS Object for easier data manipulation
+function convertCsvToObj(csv) {
+    // split raw text into array based on new lines
+    let lines = csv.split('\n');
+    // create empty array for chart data
+    let chart = [];
+    // extract header values for keys in chart objects
+    let header = lines.shift().split(',');
+    // extract top five viral songs for the day
+    for (let i = 0; i < 5; i++){
+        //create new object for individual track
+        let trackObj = {}
+        let trackInfo = lines[i].split(',');
+        for (let i = 0; i < header.length; i++) {
+            trackInfo[i] = trackInfo[i].replace(/['"]+/g, '');
+            if (i == 1){
+                trackObj['Name'] = trackInfo[i];
+            } else {
+                trackObj[`${header[i]}`] = trackInfo[i];
+            }
+        }
+        chart.push(trackObj);
+    }
+    return(chart);
+}
+
 function callSpotifyChart() {
-    $.getJSON('http://allorigins.me/get?url=https%3A//spotifycharts.com/regional/global/daily/2018-10-14/download&callback=?', function(data){
-        $('#output').html(data.contents);
+    let chartData;
+    $.get('https://allorigins.me/get?method=raw&url=' + encodeURIComponent('https://spotifycharts.com/viral/global/daily/2018-10-14/download') + '&callback=?', data => {
+    chartData = convertCsvToObj(data);
+    renderSpotify(chartData);
     });
 }
 
 function generateNYTimesHTML(responseJson) {
-    let article = responseJson.articles;
+    let articles = responseJson.articles;
     let htmlString = '';
-    article.forEach(article => {
+    articles.forEach(article => {
         htmlString += `<h3>${article.title}</h3><h4>By ${article.author}</h4><p>${article.description}</p><a href="${article.url}">Read More</a></p>`
     });
     return htmlString;
@@ -93,4 +135,6 @@ $(handleSubmit);
 
 // pain points log:
 // finding undefined in  HTMLString, done in by initializing an empty variable instead of a variable assigned to an empty string
-// epoch time for 
+// determining epoch time for use in pushShift API
+// finding some way around the CORS restriction for pulling Spotify Chart Data from third party site
+// convert CSV into a JavaScript readable object
