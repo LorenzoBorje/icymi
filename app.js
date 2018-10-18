@@ -4,6 +4,12 @@
 
 const apiKeyNYT = '2e6221e2ef1149908f06408d501922f0';
 
+function callSpotifyChart() {
+    $.getJSON('http://allorigins.me/get?url=https%3A//spotifycharts.com/regional/global/daily/2018-10-14/download&callback=?', function(data){
+        $('#output').html(data.contents);
+    });
+}
+
 function generateNYTimesHTML(responseJson) {
     let article = responseJson.articles;
     let htmlString = '';
@@ -69,8 +75,9 @@ function handleDate() {
 }
 
 function callAPI(date){
-    callNYTimes(date[0]);
-    callReddit(date[1], date[2]);
+    // callNYTimes(date[0]);
+    // callReddit(date[1], date[2]);
+    callSpotifyChart();
 }
 
 function handleSubmit() {
