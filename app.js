@@ -2,6 +2,8 @@
 // add unhappy case
 // hook up date handler
 
+const apiKeyNYT = '2e6221e2ef1149908f06408d501922f0';
+
 function generateNYTimesHTML(responseJson) {
     let article = responseJson.articles;
     let htmlString = '';
@@ -19,7 +21,7 @@ function renderNYTimes(responseJson){
 function callNYTimes(date){
     date = encodeURI(date);
     console.log(date);
-    fetch(`https://newsapi.org/v2/everything?domains=nytimes.com&apiKey=0b6c25a9ff884a048e469de267871ad1&sortBy=popularity&from=${date}&to=${date}&pageSize=5`)
+    fetch(`https://newsapi.org/v2/everything?domains=nytimes.com&apiKey=${apiKeyNYT}&sortBy=popularity&from=${date}&to=${date}&pageSize=5`)
     .then(response => {
         if(response.ok) {
             return response.json();
@@ -39,7 +41,7 @@ function generateRedditHTML(responseJson) {
 }
 
 function renderReddit(responseJson){
-    
+    $('.reddit').empty();
     console.log(responseJson.data);
     $('.reddit').append(generateRedditHTML(responseJson));
     
@@ -66,18 +68,22 @@ function handleDate() {
     return [selectedDate, epochDateStart, epochDateEnd];
 }
 
+function callAPI(date){
+    callNYTimes(date[0]);
+    callReddit(date[1], date[2]);
+}
+
 function handleSubmit() {
     $('form').submit(event => {
         event.preventDefault();
         let date = handleDate();
-        callNYTimes(date[0]);
-        callReddit(date[1], date[2]);
+        callAPI(date);
     }) 
 
 }
 
 $(handleSubmit);
 
-//error log:
+// pain points log:
 // finding undefined in  HTMLString, done in by initializing an empty variable instead of a variable assigned to an empty string
 // epoch time for 
