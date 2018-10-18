@@ -3,28 +3,32 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>ICYMI</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 </head>
 <body>
     <header>
-        <form role="form id">
+        <h1>In Case You Missed It</h1>
+        <form role="form">
             <label for ="js-date">Select Date:</label>
             <input type="date" id="js-date">
             <input type="submit">
         </form>
     </header>
     <main>
-        <h2>Spotify</h2>
-        <section class="spotify">
-        </section>
-        <h2>Reddit</h2>
-        <section class="reddit">
-        </section>
-        <h2>NYTimes</h2>
         <section class="NYTimes">
+                <h2>NYTimes</h2>
+                <div class="NYTimes results"></div>
+        </section>
+        <section class="reddit">
+            <h2>Reddit</h2>
+            <div class="reddit results"></div>
+        </section>
+        <section class="spotify">
+                <h2>Spotify</h2>
+                <div class="spotify results"></div>
         </section>
     </main>
     <script src="app.js"></script>

@@ -14,8 +14,9 @@ function generateSpotifyHTML(chartData) {
 }
 
 function renderSpotify(chartData){
-    $('.spotify').empty();
-    $('.spotify').append(generateSpotifyHTML(chartData));
+    let spotifyResults = $('.spotify .results')
+    spotifyResults.empty();
+    spotifyResults.append(generateSpotifyHTML(chartData));
 }
 
 // convert spotify viral chart CSV to JS Object for easier data manipulation
@@ -64,8 +65,9 @@ function generateNYTimesHTML(responseJson) {
 }
 
 function renderNYTimes(responseJson){
-    $('.NYTimes').empty()
-    $('.NYTimes').append(generateNYTimesHTML(responseJson));
+    let NYTimesResults = $('.NYTimes .results')
+    NYTimesResults.empty()
+    NYTimesResults.append(generateNYTimesHTML(responseJson));
 }
 
 function callNYTimes(date){
@@ -91,9 +93,9 @@ function generateRedditHTML(responseJson) {
 }
 
 function renderReddit(responseJson){
-    $('.reddit').empty();
-    console.log(responseJson.data);
-    $('.reddit').append(generateRedditHTML(responseJson));
+    let redditResults = $('.reddit .results');
+    redditResults.empty();
+    redditResults.append(generateRedditHTML(responseJson));
     
 }
 
