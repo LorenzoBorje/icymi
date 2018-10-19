@@ -1,6 +1,5 @@
 // do to:
 // add unhappy case
-// hook up date handler
 // 
 
 const apiKeyNYT = '2e6221e2ef1149908f06408d501922f0';
@@ -132,10 +131,40 @@ function handleSubmit() {
         let date = handleDate();
         callAPI(date);
     }) 
+}   
 
+function normalizeDate(dateUnit) {
+    if (dateUnit < 10) {
+        dateUnit = "0" + dateUnit;
+    }
+    return dateUnit;
 }
 
-$(handleSubmit);
+function setDate(){
+    let date = new Date();
+    let d = date.getDate() - 1;
+    let m = date.getMonth() + 1;
+    let yyyy = date.getFullYear();
+    let dd = normalizeDate(d);
+    let mm = normalizeDate(m);
+    let yesterday = `${yyyy}-${mm}-${dd}`;
+    console.log(dd, mm, yyyy);
+    console.log(yesterday);
+    // previous month
+    let lastMonth = normalizeDate(m -1);
+    console.log(lastMonth);
+    let minDate = `${yyyy}-${lastMonth}-${dd}`;
+    $('#js-date').attr("value", yesterday);
+    $('#js-date').attr("max", yesterday);
+    $('#js-date').attr("min", minDate);
+}
+
+function readyForm() {
+    setDate();
+    handleSubmit();
+}
+
+$(readyForm);
 
 // pain points log:
 // finding undefined in  HTMLString, done in by initializing an empty variable instead of a variable assigned to an empty string
