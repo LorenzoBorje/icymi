@@ -1,11 +1,11 @@
 // do to:
 // add unhappy case
 // hook up date handler
+// 
 
 const apiKeyNYT = '2e6221e2ef1149908f06408d501922f0';
 
 function generateSpotifyHTML(chartData) {
-    console.log(chartData);
     let htmlString = '';
     chartData.forEach(track => {
         htmlString += `<h3>${track.Name}</h3><h4>${track.Artist}</h4><a href="${track.URL}" target="_blank">Play on Spotify</a>`
@@ -46,13 +46,15 @@ function convertCsvToObj(csv) {
 }
 
 function callSpotifyChart(date) {
-    let chartData;
-    date = encodeURI(date)
-    console.log(date);
-    $.get('https://allorigins.me/get?method=raw&url=' + encodeURIComponent(`https://spotifycharts.com/viral/global/daily/${date}/download`) + '&callback=?', data => {
-    chartData = convertCsvToObj(data);
-    renderSpotify(chartData);
-    });
+    date = encodeURI(date);
+    fetch('https://allorigins.me/get?method=raw&url=' + encodeURIComponent(`https://spotifycharts.com/viral/global/daily/${date}/download`) + '&callback=?')
+    .then(response => {
+        if (response.ok) {
+            return response.text();
+        }
+    })
+    .then(responseText => convertCsvToObj(responseText))
+    .then(chart => renderSpotify(chart));
 }
 
 function generateNYTimesHTML(responseJson) {
@@ -72,7 +74,6 @@ function renderNYTimes(responseJson){
 
 function callNYTimes(date){
     date = encodeURI(date);
-    console.log(date);
     fetch(`https://newsapi.org/v2/everything?domains=nytimes.com&apiKey=${apiKeyNYT}&sortBy=popularity&from=${date}&to=${date}&pageSize=5`)
     .then(response => {
         if(response.ok) {
@@ -83,7 +84,6 @@ function callNYTimes(date){
     .then(responseJson => renderNYTimes(responseJson));
 }
 function generateRedditHTML(responseJson) {
-    console.log('generating')
     let response = responseJson.data;
     let htmlString = '';
     response.forEach(article => {
