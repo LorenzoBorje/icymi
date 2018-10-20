@@ -10,24 +10,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 </head>
 <body>
-    <header>
-        <h1>In Case You Missed It</h1>
+    <header class="intro">
+        <h1>ICYMI</h1>
+        <h2>In Case You Missed It</h2>
+        <p>Time travel through the last month to see trends in news, culture and music.</p>
         <form role="form">
-            <label for ="js-date">Select Date:</label>
             <input type="date" id="js-date">
-            <input type="submit">
+            <button type="submit">Select Date</button>
         </form>
+        <nav class="shortcut" role="navigation">
+            <p>Jump to:</p>
+            <a href="#reddit">Reddit</a>
+            <a href="#spotify">Spotify</a>
+            <a href="#NYTimes">NYTimes</a>
+        </nav>
     </header>
-    <main>
-        <section class="NYTimes">
+    <main role="main">
+        <section id="NYTimes" role="region">
                 <h2>NYTimes</h2>
                 <div class="NYTimes results"></div>
         </section>
-        <section class="reddit">
+        <section id="reddit" role="region">
             <h2>Reddit</h2>
             <div class="reddit results"></div>
         </section>
-        <section class="spotify">
+        <section id="spotify" role="region">
                 <h2>Spotify</h2>
                 <div class="spotify results"></div>
         </section>

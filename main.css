@@ -4,6 +4,8 @@
 
 body {
     font-family: 'Lato', sans-serif;
+    background: #FFF;  /* fallback for old browsers */
+
 }
 
 h1, h2, h3, h4, h5 {
@@ -16,15 +18,35 @@ input {
 
 header {
     text-align: center;
+    padding: 20px;
+    display: block;
+    margin: 0 auto;
+    line-height: 1;
 }
+
+header > h1 {
+    text-decoration: underline #4392F1;
+    text-underline-position: under;
+}
+
+h2 {
+    font-style: italic;
+}
+
+nav {
+    padding: 20px;
+}
+
 main {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     justify-content: space-evenly;
 }
 
 section {
-    width: 28%;
+    width: 90%;
+    /* background-color: #FFF; */
+    border-radius: 5px;
 }
 
 section h2 {
@@ -34,3 +56,58 @@ section h2 {
 .hidden {
     display: none;
 }
+
+
+
+
+
+article {
+    /* border-bottom: 5px solid #F46036;    */
+    /* box-shadow: 5px 5px 0px 0px #F46036; */
+    /* padding: 20px; */
+    color: #000;
+    background-color: #222;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.description {
+    padding: 20px;
+}
+
+article > a {
+    color: #000;
+    display: block;
+    padding: 10px;
+}
+
+.reddit > article > a:hover {
+    background-color: #000;
+    color: #FFF;
+}
+
+.reddit > article {
+    background-color: #FFF;
+    color: #000;
+}
+
+.reddit > article > .description {
+    background-color: #FC471E;
+    color: #FFF;
+
+} 
+
+.spotify > article {
+    background-color: #2AB759;
+}
+
+@media only screen and (min-width: 768px) {
+    section {
+     width: 32%;
+    }   
+
+    nav {
+        display: none;
+    }
+}
+
