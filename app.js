@@ -61,9 +61,12 @@ function callSpotifyChart(date) {
         if (response.ok) {
             return response.text();
         }
+        throw new Error(error.message);
     })
     .then(responseText => convertCsvToObj(responseText))
-    .then(chart => renderSpotify(chart));
+    .then(chart => renderSpotify(chart))
+    .catch (error => alert(`Error! ${error.message}`));
+
 }
 
 function generateNYTimesHTML(responseJson) {
@@ -91,7 +94,9 @@ function callNYTimes(date){
         }
         throw new Error (error.message);
     })
-    .then(responseJson => renderNYTimes(responseJson));
+    .then(responseJson => renderNYTimes(responseJson))
+    .catch (error => alert(`Error! ${error.message}`));
+
 }
 function generateRedditHTML(responseJson) {
     let response = responseJson.data;
@@ -118,7 +123,8 @@ function callReddit(startDate, endDate){
             return response.json();
         }
     })
-    .then(responseJson => renderReddit(responseJson));
+    .then(responseJson => renderReddit(responseJson))
+    .catch (error => alert(`Error! ${error.message}`));
 }
 
 function handleDate() {
