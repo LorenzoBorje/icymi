@@ -23,7 +23,7 @@ function renderSpotify(chartData){
 }
 
 function callSpotifyImage(trackID) {
-    
+
 }
 
 // convert spotify viral chart CSV to JS Object for easier data manipulation
@@ -65,7 +65,7 @@ function callSpotifyChart(date) {
         if (response.ok) {
             return response.text();
         }
-        throw new Error(error.message);
+        throw new Error(response.statusText);
     })
     .then(responseText => convertCsvToObj(responseText))
     .then(chart => renderSpotify(chart))
@@ -96,7 +96,7 @@ function callNYTimes(date){
         if(response.ok) {
             return response.json();
         }
-        throw new Error (error.message);
+        throw new Error (response.statusText);
     })
     .then(responseJson => renderNYTimes(responseJson))
     .catch (error => alert(`Error! ${error.message}`));
@@ -126,6 +126,7 @@ function callReddit(startDate, endDate){
         if (response.ok) {
             return response.json();
         }
+        throw new Error(response.statusText);
     })
     .then(responseJson => renderReddit(responseJson))
     .catch (error => alert(`Error! ${error.message}`));
