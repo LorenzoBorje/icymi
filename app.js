@@ -22,6 +22,10 @@ function renderSpotify(chartData){
     }
 }
 
+function callSpotifyImage(trackID) {
+    
+}
+
 // convert spotify viral chart CSV to JS Object for easier data manipulation
 function convertCsvToObj(csv) {
     console.log(csv);
