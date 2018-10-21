@@ -57,49 +57,79 @@ section h2 {
     display: none;
 }
 
-
-
-
-
 article {
     /* border-bottom: 5px solid #F46036;    */
     /* box-shadow: 5px 5px 0px 0px #F46036; */
     /* padding: 20px; */
-    color: #000;
-    background-color: #222;
+    color: #FFF;
     margin-bottom: 10px;
     line-height: 1.5;
+}
+.reddit > article {
+    background-color: #DE5832;
+    color: #FFF;
 }
 
 .description {
     padding: 20px;
 }
 
-article > a {
-    color: #000;
-    display: block;
-    padding: 10px;
-}
-
-.reddit > article > a:hover {
-    background-color: #000;
-    color: #FFF;
+.description > h4 {
+    font-style: italic;
 }
 
 .reddit > article {
-    background-color: #FFF;
-    color: #000;
-}
-
-.reddit > article > .description {
     background-color: #FC471E;
     color: #FFF;
-
 } 
 
 .spotify > article {
     background-color: #2AB759;
 }
+
+.NYTimes > article {
+    background-color: #000000;
+}
+
+.description > a {
+    color: #FFF;
+    text-decoration: none;
+}
+
+a.read-more {
+    display: block;
+    padding: 20px;
+    color: #FFF;
+    text-transform: uppercase;
+    font-family: "K2D", sans-serif;
+    text-decoration: none;
+}
+
+.reddit > article > a.read-more {
+    background-color: #B83416;
+}    
+
+.NYTimes > article > a.read-more {
+    background-color: #353535;
+}
+
+.spotify > article > a.read-more {
+    background-color: #239649;
+}
+
+.description + .read-more:hover {
+    background-color: #000;
+    color: #FFF;
+}
+.NYTimes > article > .description + a.read-more:hover {
+    background-color: #FFF;
+    color: #000;
+}
+
+
+
+
+
 
 @media only screen and (min-width: 768px) {
     section {

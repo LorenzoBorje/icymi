@@ -7,7 +7,7 @@ const apiKeyNYT = '2e6221e2ef1149908f06408d501922f0';
 function generateSpotifyHTML(chartData) {
     let htmlString = '';
     chartData.forEach(track => {
-        htmlString += `<article><h3>${track.Name}</h3><h4>${track.Artist}</h4><a href="${track.URL}" target="_blank">Play on Spotify</a></article>`
+        htmlString += `<article><div class="description"><h3>${track.Name}</h3><h4>By ${track.Artist}</h4></div><a class="read-more" href="${track.URL}" target="_blank">Play on Spotify →</a></article>`
     });
     return htmlString;    
 }
@@ -16,7 +16,7 @@ function renderSpotify(chartData){
     let spotifyResults = $('div.spotify.results')
     spotifyResults.empty();
     if (chartData == undefined){
-        spotifyResults.append(`<article><h3>Data Not Yet Compiled</h3><p>Try again later!</p></article>`);
+        spotifyResults.append(`<article><div class="description"><h3>Data Not Yet Compiled</h3><p>Try again later!</p></div></article>`);
     } else {
         spotifyResults.append(generateSpotifyHTML(chartData));
     }
@@ -35,7 +35,7 @@ function convertCsvToObj(csv) {
     // extract header values for keys in chart objects
     let header = lines.shift().split(',');
     // select number of tracks to return    
-    let chartSize = 10;
+    let chartSize = 7;
     // extract top viral songs for the day
     for (let i = 0; i < chartSize; i++){
         //create new object for individual track
@@ -70,7 +70,8 @@ function generateNYTimesHTML(responseJson) {
     let articles = responseJson.articles;
     let htmlString = '';
     articles.forEach(article => {
-        htmlString += `<article><h3>${article.title}</h3><h4>By ${article.author}</h4><p>${article.description}</p><a href="${article.url}" target="_blank">Read More</a></p></article>`
+        htmlString += 
+        `<article><div class="description"><h3>${article.title}</h3><h4>By ${article.author}</h4><p>${article.description}</p></div><a class="read-more" href="${article.url}" target="_blank">Read More →</a></p></article>`
     });
     return htmlString;
 }
@@ -97,13 +98,7 @@ function generateRedditHTML(responseJson) {
     let htmlString = '';
     response.forEach(article => {
         htmlString += 
-            `<article>
-                <div class="description">
-                    <h3>${article.title}</h3>
-                    <h4><a href="https://www.reddit.com/r/${article.subreddit}">r/${article.subreddit}</a></h4>
-                </div>
-                <a class="read-more" href="${article.full_link}" target="_blank">Read More →</a>
-            </article>`
+        `<article><div class="description"><h3>${article.title}</h3><h4><a href="https://www.reddit.com/r/${article.subreddit}">r/${article.subreddit}</a></h4></div><a class="read-more" href="${article.full_link}" target="_blank">Read More →</a></article>`
     })
     return htmlString;
 }
@@ -116,7 +111,8 @@ function renderReddit(responseJson){
 }
 
 function callReddit(startDate, endDate){
-    fetch(`https://api.pushshift.io/reddit/submission/search/?sort=desc&sort_type=num_comments&size=8&after=${startDate}&before=${endDate}`)
+    let size = 7; 
+    fetch(`https://api.pushshift.io/reddit/submission/search/?sort=desc&sort_type=num_comments&size=${size}&after=${startDate}&before=${endDate}`)
     .then(response => {
         if (response.ok) {
             return response.json();
