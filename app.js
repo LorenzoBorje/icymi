@@ -99,7 +99,7 @@ function callNYTimes(date){
         throw new Error (response.statusText);
     })
     .then(responseJson => renderNYTimes(responseJson))
-    .catch (error => alert(`Error! ${error.message}`));
+    .catch (error => alert(`Error! Out of range.`));
 
 }
 function generateRedditHTML(responseJson) {
@@ -107,7 +107,7 @@ function generateRedditHTML(responseJson) {
     let htmlString = '';
     response.forEach(article => {
         htmlString += 
-        `<article><div class="description"><h3>${article.title}</h3><h4><a href="https://www.reddit.com/r/${article.subreddit}">r/${article.subreddit}</a></h4></div><a class="read-more" href="${article.full_link}" target="_blank">Read More →</a></article>`
+        `<article><div class="description"><h3>${article.title}</h3><h4><a class="subreddit" href="https://www.reddit.com/r/${article.subreddit}">r/${article.subreddit}</a></h4></div><a class="read-more" href="${article.full_link}" target="_blank">Read More →</a></article>`
     })
     return htmlString;
 }
@@ -154,6 +154,7 @@ function handleSubmit() {
         event.preventDefault();
         let date = handleDate();
         callAPI(date);
+        $('nav').removeClass('hidden');
     }) 
 }   
 
