@@ -56,20 +56,35 @@ section h2 {
     text-align: center;
 }
 
+#NYTimes > h2 {
+    background: url(https://upload.wikimedia.org/wikipedia/commons/7/77/The_New_York_Times_logo.png) no-repeat;
+    text-indent: -9999px;
+    background-size: 240px;
+    background-position: center center; 
+    height: 50px;
+}
+
+#reddit > h2 {
+    background: url(https://upload.wikimedia.org/wikipedia/en/thumb/5/58/Reddit_logo_new.svg/250px-Reddit_logo_new.svg.png) no-repeat;
+    text-indent: -9999px;
+    background-size: 120px;
+    background-position: center center; 
+    height: 50px;
+}
+
+#spotify > h2 {
+    background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Spotify_logo_with_text.svg/250px-Spotify_logo_with_text.svg.png) no-repeat;
+    text-indent: -9999px;
+    background-size: 120px;
+    background-position: center center; 
+    height: 50px;
+}
+
 
 article {
-
     color: #FFF;
     margin-bottom: 10px;
     line-height: 1.5;
-}
-
-.description {
-    padding: 20px;
-}
-
-.description > h4 {
-    font-style: italic;
 }
 
 .reddit > article {
@@ -84,6 +99,15 @@ article {
 .NYTimes > article {
     background-color: #000000;
 }
+
+.description {
+    padding: 20px;
+}
+
+.description > h4 {
+    font-style: italic;
+}
+
 
 a.subreddit {
     color: #FFF;
