@@ -1,0 +1,163 @@
+* {
+    box-sizing: border-box;
+}
+
+.hidden {
+    display: none;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background: #FFFFFF; 
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'K2D', sans-serif;
+}
+
+input {
+    font-family: 'K2D', sans-serif;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    display: block;
+    margin: 0 auto;
+    line-height: 1;
+}
+
+header > h1 {
+    text-decoration: underline #4392F1;
+    text-underline-position: under;
+}
+
+h2 {
+    font-style: italic;
+}
+
+nav {
+    padding: 20px;
+}
+
+main {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}
+
+section {
+    width: 90%;
+    /* background-color: #FFF; */
+    border-radius: 5px;
+}
+
+section h2 {
+    text-align: center;
+}
+
+#NYTimes > h2 {
+    background: url(https://upload.wikimedia.org/wikipedia/commons/7/77/The_New_York_Times_logo.png) no-repeat;
+    text-indent: -9999px;
+    background-size: 240px;
+    background-position: center center; 
+    height: 50px;
+}
+
+#reddit > h2 {
+    background: url(https://upload.wikimedia.org/wikipedia/en/thumb/5/58/Reddit_logo_new.svg/250px-Reddit_logo_new.svg.png) no-repeat;
+    text-indent: -9999px;
+    background-size: 120px;
+    background-position: center center; 
+    height: 50px;
+}
+
+#spotify > h2 {
+    background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Spotify_logo_with_text.svg/250px-Spotify_logo_with_text.svg.png) no-repeat;
+    text-indent: -9999px;
+    background-size: 120px;
+    background-position: center center; 
+    height: 50px;
+}
+
+
+article {
+    color: #FFF;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    -webkit-transition: opacity 1s ease-in 1s;
+    -moz-transition: opacity 1s ease-in 1s;
+    transition: opacity 1s ease-in 1s;
+    opacity: 0;
+}
+
+.visible {
+    opacity: 1;
+}
+
+.reddit > article {
+    background-color: #FC471E;
+    color: #FFF;
+} 
+
+.spotify > article {
+    background-color: #2AB759;
+}
+
+.NYTimes > article {
+    background-color: #000000;
+}
+
+.description {
+    padding: 20px;
+}
+
+.description > h4 {
+    font-style: italic;
+}
+
+
+a.subreddit {
+    color: #FFF;
+}
+
+a.read-more {
+    display: block;
+    padding: 20px;
+    color: #FFF;
+    text-transform: uppercase;
+    font-family: "K2D", sans-serif;
+    text-decoration: none;
+}
+
+.reddit > article > a.read-more {
+    background-color: #B83416;
+}    
+
+.NYTimes > article > a.read-more {
+    background-color: #353535;
+}
+
+.spotify > article > a.read-more {
+    background-color: #239649;
+}
+
+.description + .read-more:hover {
+    background-color: #000;
+    color: #FFF;
+}
+.NYTimes > article > .description + a.read-more:hover {
+    background-color: #FFF;
+    color: #000;
+}
+
+@media only screen and (min-width: 768px) {
+    section {
+     width: 32%;
+    }   
+
+    nav {
+        display: none;
+    }
+}
+
