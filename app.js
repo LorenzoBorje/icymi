@@ -14,21 +14,20 @@ function generateSpotifyHTML(chartData) {
 
 function renderSpotify(chartData){
     let spotifyResults = $('div.spotify.results')
+    $('div.spotify.results > article').removeClass('visible');    
     spotifyResults.empty();
     if (chartData == undefined){
         spotifyResults.append(`<article><div class="description"><h3>Data Not Yet Compiled</h3><p>Try again later!</p></div></article>`);
     } else {
         spotifyResults.append(generateSpotifyHTML(chartData));
     }
-}
-
-function callSpotifyImage(trackID) {
-
+    setTimeout(function(){
+        $('div.spotify.results > article').addClass('visible');
+    }, 200);
 }
 
 // convert spotify viral chart CSV to JS Object for easier data manipulation
 function convertCsvToObj(csv) {
-    console.log(csv);
     // split raw text into array based on new lines
     let lines = csv.split('\n');
     console.log(lines[0]);
@@ -84,9 +83,13 @@ function generateNYTimesHTML(responseJson) {
 }
 
 function renderNYTimes(responseJson){
-    let NYTimesResults = $('div.NYTimes.results')
+    $('div.NYTimes.results > article').removeClass('visible');    
+    const NYTimesResults = $('div.NYTimes.results')
     NYTimesResults.empty()
     NYTimesResults.append(generateNYTimesHTML(responseJson));
+    setTimeout(function(){
+        $('div.NYTimes.results > article').addClass('visible');    
+    }, 200);
 }
 
 function callNYTimes(date){
@@ -116,6 +119,10 @@ function renderReddit(responseJson){
     let redditResults = $('div.reddit.results');
     redditResults.empty();
     redditResults.append(generateRedditHTML(responseJson));
+    setTimeout(function(){
+        $('div.reddit.results > article').addClass('visible');    
+    }, 200);    
+
     
 }
 

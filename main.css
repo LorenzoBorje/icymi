@@ -85,6 +85,14 @@ article {
     color: #FFF;
     margin-bottom: 10px;
     line-height: 1.5;
+    -webkit-transition: opacity 1s ease-in 1s;
+    -moz-transition: opacity 1s ease-in 1s;
+    transition: opacity 1s ease-in 1s;
+    opacity: 0;
+}
+
+.visible {
+    opacity: 1;
 }
 
 .reddit > article {
