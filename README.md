@@ -6,5 +6,5 @@ A dashboard for snapshots of trending news, culture and music. The user can sele
 
 ## Screenshots
 
-##
+
 
