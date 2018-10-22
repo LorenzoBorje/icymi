@@ -162,6 +162,7 @@ function handleSubmit() {
         let date = handleDate();
         callAPI(date);
         $('nav').removeClass('hidden');
+        $('.shortcut').removeClass('hidden');
     }) 
 }   
 

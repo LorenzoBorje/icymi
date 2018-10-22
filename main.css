@@ -1,3 +1,5 @@
+/* add vendor prefixes to text-decoration declarations */
+
 * {
     box-sizing: border-box;
 }
@@ -28,7 +30,7 @@ header {
 }
 
 header > h1 {
-    text-decoration: underline #4392F1;
+    text-decoration: wavy underline #4392F1;
     text-underline-position: under;
 }
 
@@ -41,7 +43,15 @@ nav {
 }
 
 nav > a {
-    color: white;
+    color: #000;
+}
+
+.shortcut {
+    text-align: center;
+    display: block;
+    font-family: "K2D", sans-serif;
+    text-transform: uppercase;
+    text-underline-position: under;
 }
 
 main {
