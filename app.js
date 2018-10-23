@@ -31,7 +31,6 @@ function renderSpotify(chartData){
 function convertCsvToObj(csv) {
     // split raw text into array based on new lines
     let lines = csv.split('\n');
-    console.log(lines[0]);
     // handle unhappy case if API call doesn't return a csv
     if (lines[0] == "<!doctype html>") return undefined;
     // create empty array for chart data
@@ -203,8 +202,3 @@ function readyForm() {
 
 $(readyForm);
 
-// pain points log:
-// finding undefined in  HTMLString, done in by initializing an empty variable instead of a variable assigned to an empty string
-// determining epoch time for use in pushShift API
-// finding some way around the CORS restriction for pulling Spotify Chart Data from third party site
-// convert CSV into a JavaScript readable object
