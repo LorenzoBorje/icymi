@@ -1,6 +1,6 @@
 # ICYMI
 
-[Project Link](https://lorenzoborje.github.io/icymi/)
+[Live Link](https://lorenzoborje.github.io/icymi/)
 
 ## Summary
 
