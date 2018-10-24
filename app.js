@@ -1,7 +1,3 @@
-// do to:
-// add unhappy case
-// 
-
 const apiKeyNYT = '2e6221e2ef1149908f06408d501922f0';
 
 function generateSpotifyHTML(chartData) {
@@ -22,6 +18,7 @@ function renderSpotify(chartData){
     } else {
         spotifyResults.append(generateSpotifyHTML(chartData));
     }
+    spotifyResults.removeClass('hidden');
     setTimeout(function(){
         $('div.spotify.results > article').addClass('visible');
     }, 200);
@@ -69,7 +66,7 @@ function callSpotifyChart(date) {
     })
     .then(responseText => convertCsvToObj(responseText))
     .then(chart => renderSpotify(chart))
-    .catch (error => alert(`Error! ${error.message}`));
+    .catch (error => alert(`Error! ${response.statusText}`));
 
 }
 
@@ -87,6 +84,7 @@ function renderReddit(responseJson){
     let redditResults = $('div.reddit.results');
     redditResults.empty();
     redditResults.append(generateRedditHTML(responseJson));
+    redditResults.removeClass('hidden');
     setTimeout(function(){
         $('div.reddit.results > article').addClass('visible');    
     }, 200);    
@@ -104,7 +102,7 @@ function callReddit(startDate, endDate){
         throw new Error(response.statusText);
     })
     .then(responseJson => renderReddit(responseJson))
-    .catch (error => alert(`Error! ${error.message}`));
+    .catch (error => alert(`Error! ${response.statusText}`));
 }    
 
 function generateNYTimesHTML(responseJson) {
@@ -118,10 +116,10 @@ function generateNYTimesHTML(responseJson) {
 }
 
 function renderNYTimes(responseJson){
-    $('div.NYTimes.results > article').removeClass('visible');    
     const NYTimesResults = $('div.NYTimes.results')
     NYTimesResults.empty()
     NYTimesResults.append(generateNYTimesHTML(responseJson));
+    NYTimesResults.removeClass('hidden');
     setTimeout(function(){
         $('div.NYTimes.results > article').addClass('visible');    
     }, 200);
