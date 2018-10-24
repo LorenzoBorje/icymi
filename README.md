@@ -21,4 +21,5 @@ A dashboard for snapshots of trending news, culture and music. The user can sele
 * More sources
 * The ability to select sources to view
 * Better cross-browser datepicker implementation
+* Header redesign
 
