@@ -59,12 +59,12 @@ function convertCsvToObj(csv) {
 
 function callSpotifyChart(date) {
     date = encodeURI(date);
-    fetch('https://allorigins.me/get?method=raw&url=' + encodeURIComponent(`https://spotifycharts.com/viral/global/daily/${date}/download`) + '&callback=?')
+    fetch('https://api.allorigins.ml/raw?url=' + encodeURIComponent(`https://spotifycharts.com/viral/global/daily/${date}/download`) + '&callback=?')
     .then(response => {
         if (response.ok) {
             return response.text();
         }
-        throw new Error(response.statusText);
+        throw new Error(response.statusText);   
     })
     .then(responseText => convertCsvToObj(responseText))
     .then(chart => renderSpotify(chart))
