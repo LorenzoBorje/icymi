@@ -1,7 +1,3 @@
-// do to:
-// add unhappy case
-// 
-
 const apiKeyNYT = '2e6221e2ef1149908f06408d501922f0';
 
 function generateSpotifyHTML(chartData) {
@@ -16,11 +12,13 @@ function renderSpotify(chartData){
     let spotifyResults = $('div.spotify.results')
     $('div.spotify.results > article').removeClass('visible');    
     spotifyResults.empty();
+    // checks if unhappy case
     if (chartData == undefined){
-        spotifyResults.append(`<article><div class="description"><h3>Data Not Yet Compiled</h3><p>Try again later!</p></div></article>`);
+        spotifyResults.append(`<article><div class="description"><h3>Data Not Yet Available</h3><p>Try again later!</p></div></article>`);
     } else {
         spotifyResults.append(generateSpotifyHTML(chartData));
     }
+    spotifyResults.removeClass('hidden');
     setTimeout(function(){
         $('div.spotify.results > article').addClass('visible');
     }, 200);
@@ -30,7 +28,6 @@ function renderSpotify(chartData){
 function convertCsvToObj(csv) {
     // split raw text into array based on new lines
     let lines = csv.split('\n');
-    console.log(lines[0]);
     // handle unhappy case if API call doesn't return a csv
     if (lines[0] == "<!doctype html>") return undefined;
     // create empty array for chart data
@@ -45,6 +42,7 @@ function convertCsvToObj(csv) {
         let trackObj = {}
         let trackInfo = lines[i].split(',');
         for (let i = 0; i < header.length; i++) {
+            // fill track obj with header and info
             trackInfo[i] = trackInfo[i].replace(/['"]+/g, '');
             if (i == 1){
                 trackObj['Name'] = trackInfo[i];
@@ -68,43 +66,10 @@ function callSpotifyChart(date) {
     })
     .then(responseText => convertCsvToObj(responseText))
     .then(chart => renderSpotify(chart))
-    .catch (error => alert(`Error! ${error.message}`));
+    .catch (error => alert(`Error! ${response.statusText}`));
 
 }
 
-function generateNYTimesHTML(responseJson) {
-    let articles = responseJson.articles;
-    let htmlString = '';
-    articles.forEach(article => {
-        htmlString += 
-        `<article><div class="description"><h3>${article.title}</h3><h4>By ${article.author}</h4><p>${article.description}</p></div><a class="read-more" href="${article.url}" target="_blank">Read More →</a></p></article>`
-    });
-    return htmlString;
-}
-
-function renderNYTimes(responseJson){
-    $('div.NYTimes.results > article').removeClass('visible');    
-    const NYTimesResults = $('div.NYTimes.results')
-    NYTimesResults.empty()
-    NYTimesResults.append(generateNYTimesHTML(responseJson));
-    setTimeout(function(){
-        $('div.NYTimes.results > article').addClass('visible');    
-    }, 200);
-}
-
-function callNYTimes(date){
-    date = encodeURI(date);
-    fetch(`https://newsapi.org/v2/everything?domains=nytimes.com&apiKey=${apiKeyNYT}&sortBy=popularity&from=${date}&to=${date}&pageSize=5`)
-    .then(response => {
-        if(response.ok) {
-            return response.json();
-        }
-        throw new Error (response.statusText);
-    })
-    .then(responseJson => renderNYTimes(responseJson))
-    .catch (error => alert(`Error! Out of range.`));
-
-}
 function generateRedditHTML(responseJson) {
     let response = responseJson.data;
     let htmlString = '';
@@ -119,6 +84,7 @@ function renderReddit(responseJson){
     let redditResults = $('div.reddit.results');
     redditResults.empty();
     redditResults.append(generateRedditHTML(responseJson));
+    redditResults.removeClass('hidden');
     setTimeout(function(){
         $('div.reddit.results > article').addClass('visible');    
     }, 200);    
@@ -136,18 +102,40 @@ function callReddit(startDate, endDate){
         throw new Error(response.statusText);
     })
     .then(responseJson => renderReddit(responseJson))
-    .catch (error => alert(`Error! ${error.message}`));
+    .catch (error => alert(`Error! ${response.statusText}`));
+}    
+
+function generateNYTimesHTML(responseJson) {
+    let articles = responseJson.articles;
+    let htmlString = '';
+    articles.forEach(article => {
+        htmlString += 
+        `<article><div class="description"><h3>${article.title}</h3><h4>By ${article.author}</h4><p>${article.description}</p></div><a class="read-more" href="${article.url}" target="_blank">Read More →</a></p></article>`
+    });
+    return htmlString;
 }
 
-function handleDate() {
-    let selectedDate = $('input[type="date"]').val();
-    let epochDate = new Date(selectedDate);
-    let epochDateStart = epochDate.getTime();
-    let epochDateEnd = new Date(epochDateStart + 86400000);
-    //divide time by 1000 to get epoch date in seconds
-    epochDateEnd = epochDateEnd.getTime() / 1000;
-    epochDateStart = epochDateStart /1000;
-    return [selectedDate, epochDateStart, epochDateEnd];
+function renderNYTimes(responseJson){
+    const NYTimesResults = $('div.NYTimes.results')
+    NYTimesResults.empty()
+    NYTimesResults.append(generateNYTimesHTML(responseJson));
+    NYTimesResults.removeClass('hidden');
+    setTimeout(function(){
+        $('div.NYTimes.results > article').addClass('visible');    
+    }, 200);
+}
+
+function callNYTimes(date){
+    date = encodeURI(date);
+    fetch(`https://newsapi.org/v2/everything?domains=nytimes.com&apiKey=${apiKeyNYT}&sortBy=popularity&from=${date}&to=${date}&pageSize=5`)
+    .then(response => {
+        if(response.ok) {
+            return response.json();
+        }
+        throw new Error (response.statusText);
+    })
+    .then(responseJson => renderNYTimes(responseJson))
+    .catch (error => alert(`Error! Out of range.`));
 }
 
 function callAPI(date){
@@ -156,12 +144,29 @@ function callAPI(date){
     callSpotifyChart(date[0]);
 }
 
+function handleDate() {
+    let selectedDate = $('input[type="date"]').val();
+    let epochDate = new Date(selectedDate);
+    let epochDateStart = epochDate.getTime();
+    let epochDateEnd = new Date(epochDateStart + 86400000);
+    //divide time by 1000 to get epoch date in seconds for Reddit API call
+    epochDateEnd = epochDateEnd.getTime() / 1000;
+    epochDateStart = epochDateStart /1000;
+    return [selectedDate, epochDateStart, epochDateEnd];
+}    
+
+function showNavElements(){
+    $('nav').removeClass('hidden');
+    $('.shortcut').removeClass('hidden');
+}
+
 function handleSubmit() {
     $('form').submit(event => {
         event.preventDefault();
         let date = handleDate();
         callAPI(date);
-        $('nav').removeClass('hidden');
+        showNavElements();
+
     }) 
 }   
 
@@ -183,9 +188,9 @@ function setDate(){
     // previous month
     let lastMonth = normalizeDate(m -1);
     let minDate = `${yyyy}-${lastMonth}-${dd}`;
-    $('#js-date').attr("value", yesterday);
-    $('#js-date').attr("max", yesterday);
-    $('#js-date').attr("min", minDate);
+    $('#js-date').attr('value', yesterday);
+    $('#js-date').attr('max', yesterday);
+    $('#js-date').attr('min', minDate);
 }
 
 function readyForm() {
@@ -195,8 +200,3 @@ function readyForm() {
 
 $(readyForm);
 
-// pain points log:
-// finding undefined in  HTMLString, done in by initializing an empty variable instead of a variable assigned to an empty string
-// determining epoch time for use in pushShift API
-// finding some way around the CORS restriction for pulling Spotify Chart Data from third party site
-// convert CSV into a JavaScript readable object

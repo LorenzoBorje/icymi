@@ -1,23 +1,21 @@
+/* add vendor prefixes to text-decoration declarations */
+
 * {
     box-sizing: border-box;
 }
 
-.hidden {
-    display: none;
-}
+/* Typography */
 
 body {
     font-family: 'Lato', sans-serif;
     background: #FFFFFF; 
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, input, .shortcut, #shortcut {
     font-family: 'K2D', sans-serif;
 }
 
-input {
-    font-family: 'K2D', sans-serif;
-}
+/* Header */
 
 header {
     text-align: center;
@@ -36,13 +34,42 @@ h2 {
     font-style: italic;
 }
 
+
 nav {
     padding: 20px;
 }
 
-nav > a {
-    color: white;
+#shortcut > a {
+    color: #FFF;
+    padding: 5px;
+    margin-right: 5px;
+    text-decoration: none;
 }
+#shortcut > a[href="#reddit"] {
+    background-color: #FC471E;
+}
+
+#shortcut > a[href="#spotify"] {
+    background-color: #2AB759;
+}
+
+#shortcut > a[href="#NYTimes"] {
+    background-color: #000;
+}
+
+#shortcut > a:hover, #shortcut > a:focus {
+    background-color: #000;
+}
+
+#shortcut > a[href="#NYTimes"]:hover, #shortcut > a[href="#NYTimes"]:focus {
+    background-color: #FFF;
+    color: #000;
+}
+
+
+
+
+
 
 main {
     display: flex;
@@ -52,12 +79,12 @@ main {
 
 section {
     width: 90%;
-    /* background-color: #FFF; */
     border-radius: 5px;
 }
 
 section h2 {
     text-align: center;
+    color: #333;
 }
 
 #NYTimes > h2 {
@@ -83,7 +110,6 @@ section h2 {
     background-position: center center; 
     height: 50px;
 }
-
 
 article {
     color: #FFF;
@@ -125,6 +151,11 @@ a.subreddit {
     color: #FFF;
 }
 
+a.subreddit:hover, a.subreddit:focus {
+    background-color: #FFF;
+    color: #000;
+}
+
 a.read-more {
     display: block;
     padding: 20px;
@@ -146,22 +177,46 @@ a.read-more {
     background-color: #239649;
 }
 
-.description + .read-more:hover {
+.description + .read-more:hover, .description + .read-more:focus {
     background-color: #000;
     color: #FFF;
 }
-.NYTimes > article > .description + a.read-more:hover {
+.NYTimes > article > a.read-more:hover, .NYTimes > article > a.read-more:hover {
     background-color: #FFF;
     color: #000;
 }
 
-@media only screen and (min-width: 768px) {
-    section {
-     width: 32%;
-    }   
+.shortcut {
+    text-align: center;
+    display: block;
+    font-family: "K2D", sans-serif;
+    text-transform: uppercase;
+    text-underline-position: under;
+    color: #000;
+}
 
+.hidden {
+    display: none;
+}
+
+
+@media only screen and (min-width: 768px) {
+    
+    section {
+        width: 32%;
+    }   
+    
+    .results {
+        overflow: scroll;
+        height: 500px;
+    }
     nav {
         display: none;
     }
+
+    .shortcut {
+        display: none;
+    }
+
 }
 
